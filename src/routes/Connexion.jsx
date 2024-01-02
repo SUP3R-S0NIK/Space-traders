@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./../App.css"; // Assurez-vous d'importer votre fichier CSS
+import "./../styles/stars.css";
+import "./../styles/Connexion.css";
 
 export default function Connexion() {
   const [token, setToken] = useState("");
   const [tokenSaisi, setTokenSaisi] = useState("");
   const [symbolJoueur, setSymbolJoueur] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,17 +47,24 @@ export default function Connexion() {
 
   return (
     <div className="agent">
-      <h2>Page de Connexion</h2>
+      <h2 id="title">Connexion</h2>
       <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Token de Connexion :
+        <form id="Form" onSubmit={handleSubmit}>
+          <div className="input-group">
             <input
+              className="input"
+              required
+              autocomplete="off"
               type="text"
+              name="Token"
+              id="Token"
               value={tokenSaisi}
               onChange={(e) => setTokenSaisi(e.target.value)}
             />
-          </label>
+            <label className="label" for="Token">
+              Token
+            </label>
+          </div>
           <button type="submit">Se connecter</button>
         </form>
       </div>

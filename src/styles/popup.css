@@ -1,0 +1,77 @@
+.popupcontainer-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+.popup-div {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 50px;
+  width: 80%;
+}
+.blur-div {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(5px);
+}
+.visible {
+  display: flex; /* ou tout autre style que vous souhaitez pour la visibilité */
+}
+
+.hidden {
+  display: none; /* ou tout autre style que vous souhaitez pour la non-visibilité */
+}
+.section-popup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.section-popup-table {
+  width: 100%;
+  gap: 10px;
+}
+
+.section-popup label {
+  width: fit-content;
+}
+.section-popup p {
+  color: #646cff;
+}
+.select {
+  width: 50%;
+  padding: 3px;
+  color: white; /* Change the text color to black or any color that provides good contrast */
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  background: rgba(61, 94, 217, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+}
+.select option {
+  color: #646cff;
+}
+table {
+  width: 100%;
+}

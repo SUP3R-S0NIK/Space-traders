@@ -1,0 +1,34 @@
+.loader-container {
+  width: fit-content;
+  background: rgba(61, 94, 217, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  color: white;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  top: 40vh;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 0;
+}
+.loader-svg {
+  width: 100px; /* Ajoutez la largeur de votre choix */
+  height: 100px; /* Ajoutez la hauteur de votre choix */
+  animation: rotate 100s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

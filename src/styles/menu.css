@@ -1,0 +1,112 @@
+.menu {
+  color: white;
+  margin-bottom: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+  position: relative;
+}
+.menu ul {
+  border-radius: 50px;
+
+  width: fit-content;
+  background: rgba(61, 94, 217, 0.13);
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+.menu ul li {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+.menu ul li a {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.menu ul li.active {
+  background: rgba(19, 37, 102, 0.129);
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(19, 37, 102, 0.46);
+}
+.menu ul li:hover {
+  background: rgba(19, 37, 102, 0.13);
+  border-radius: 25px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+}
+.div-account {
+  color: #646cff;
+  position: relative;
+  border-radius: 50px;
+  width: 190px;
+
+  background: rgba(61, 94, 217, 0.13);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: end;
+  font-size: 12px;
+  gap: 10px;
+  padding: 10px;
+}
+.div-account svg {
+  height: 36px;
+  width: auto;
+}
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.div-account p {
+  margin: 0;
+}
+.additional-menu {
+  position: absolute;
+  bottom: -90px;
+  z-index: -99;
+  border-radius: 15px;
+  width: 140px;
+  height: fit-content;
+  background: rgba(61, 94, 217, 0.13);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  padding: 10px;
+  font-size: 0.9rem;
+}
+.bi-chevron-down {
+  cursor: pointer;
+}
+.bi-chevron-down.open {
+  transform: rotate(180deg);
+}

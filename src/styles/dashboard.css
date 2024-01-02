@@ -1,0 +1,67 @@
+.dashboard > div {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px 20px;
+  grid-auto-flow: row;
+}
+
+.\! {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.Ship {
+  grid-area: 1 / 1 / 2 / 4;
+}
+
+.Money {
+  grid-area: 1 / 4 / 2 / 6;
+}
+
+.Map {
+  grid-area: 2 / 1 / 3 / 4;
+}
+
+.Contrats {
+  grid-area: 2 / 4 / 3 / 6;
+}
+.button {
+  width: fit-content;
+  background: rgba(61, 94, 217, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  color: white;
+  align-self: flex-end;
+  margin: 10px 10px;
+}
+.bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bar p {
+  margin: 0;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
