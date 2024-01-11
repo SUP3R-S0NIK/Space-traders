@@ -13,7 +13,7 @@ import Vaisseaux from "./routes/Vaisseau";
 import AchatVaisseaux from "./routes/AchatVaisseau";
 import Scan from "./routes/scan-waypoints";
 import Menu from "./routes/Menu";
-import Minage from "./routes/minage";
+import Minage from "./routes/Minage";
 import Navigation from "./routes/navigation.jsx";
 import InfoNav from "./routes/infos-navigation.jsx";
 
