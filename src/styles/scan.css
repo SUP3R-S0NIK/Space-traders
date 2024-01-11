@@ -1,0 +1,191 @@
+canvas {
+  background-color: #1d1e22;
+}
+.dots-layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.target {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid orange;
+}
+.waypoints {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.waypoint {
+  border: 2px solid rgba(253, 2, 2, 0.671);
+  min-height: 35%;
+  width: 35%;
+  border-radius: 50px;
+  position: absolute;
+  z-index: 999;
+  cursor: pointer;
+}
+.waypoint:hover {
+  background-color: rgba(253, 2, 2, 0.671);
+  min-height: 55%;
+  width: 55%;
+}
+.cercle {
+  position: absolute;
+  border: 1px solid rgb(66, 216, 111);
+
+  border-radius: 950px;
+}
+.cercle1 {
+  width: 95%;
+  height: 95%;
+}
+.cercle2 {
+  width: 65%;
+  height: 65%;
+}
+.cercle3 {
+  width: 35%;
+  height: 35%;
+}
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 18px #1cffcb, 0 0 15px #1cffcb;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.board:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-image: conic-gradient(#000 0, #000 35%);
+  animation: rotate 3s linear infinite;
+  z-index: 1;
+}
+.board * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 99;
+}
+.board .round {
+  border-radius: inherit;
+  border: 1px solid #fff;
+}
+.board .round-sm {
+  width: 25%;
+  height: 25%;
+}
+.board .round-md {
+  width: 50%;
+  height: 50%;
+}
+.board .round-lg {
+  width: 75%;
+  height: 75%;
+}
+.board .line {
+  background-color: #fff;
+}
+.board .line-x {
+  width: 100%;
+  height: 1px;
+}
+.board .line-y {
+  width: 1px;
+  height: 100%;
+}
+.radar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  border-radius: inherit;
+  background-image: conic-gradient(#1cffcb 3%, #1cffcb 8%, transparent 35%);
+  animation: rotate 5s linear infinite;
+}
+.radar:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-image: conic-gradient(#1cffca63 2%, transparent 4%);
+}
+.waypoints-zone {
+  position: relative;
+  z-index: 99;
+  width: 5%;
+  height: 5%;
+  z-index: 999;
+}
+.div-waypoints {
+  height: 800px;
+  width: 800px;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.list-waypoints {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 60px;
+  width: 80vw;
+}
+
+.list-waypoints th,
+.list-waypoints td {
+  text-align: start;
+  padding: 10px;
+}
+.list-waypoints td:last-of-type {
+  padding: 0;
+}

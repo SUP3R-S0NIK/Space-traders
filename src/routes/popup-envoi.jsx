@@ -110,8 +110,6 @@ const Popup_envoi = ({ selectedShipSymbol, onClose }) => {
               <tr>
                 <th>Symbol</th>
                 <th>Type</th>
-                <th>Faction</th>
-                <th>Orbits</th>
                 <th>Is Under Construction</th>
                 <th>Select</th>
               </tr>
@@ -121,8 +119,6 @@ const Popup_envoi = ({ selectedShipSymbol, onClose }) => {
                 <tr key={waypoint.symbol}>
                   <td>{waypoint.symbol}</td>
                   <td>{waypoint.type}</td>
-                  <td>{waypoint.faction?.symbol || "N/A"}</td>
-                  <td>{waypoint.orbits}</td>
                   <td>{waypoint.isUnderConstruction?.toString() || "N/A"}</td>
                   <td>
                     <input

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/dashboard.css";
 import Menu from "./Menu";
-import Loader from "./loader"; // Assurez-vous de mettre le chemin correct vers votre fichier Loader
+import Loader from "./loader";
+import Scan from "./Scan-dashboard";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -16,6 +19,10 @@ export default function Home() {
   const [ships, setShips] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [moneyHistory, setMoneyHistory] = useState([]);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return format(date, "dd/MM/yyyy HH:mm:ss", { locale: fr });
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -265,11 +272,47 @@ export default function Home() {
             </table>
           </div>
 
-          <div className="Map"></div>
-
           <div className="Contrats">
-            <h4>Mes contrats :</h4>
-            {/* Ajoutez ici la section des contrats */}
+            <div>
+              <h4>Contrats :</h4>
+              {contracts.length > 0 ? (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Accepté</th>
+                      <th>Rempli</th>
+                      <th>Expiration</th>
+                      <th>Date limite d'acceptation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contracts.map((contract) => (
+                      <tr key={contract.id}>
+                        <td>{contract.type}</td>
+                        <td>{contract.accepted ? "Oui" : "Non"}</td>
+                        <td>{contract.fulfilled ? "Oui" : "Non"}</td>
+                        <td>{formatDate(contract.expiration)}</td>
+                        <td>{formatDate(contract.deadlineToAccept)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <p>Aucun contrat disponible.</p>
+              )}
+            </div>
+            <button className="button button-contracts">Gérer</button>
+          </div>
+
+          <div className="map">
+            <h4>Carte du système :</h4>
+            <div className="div-map">
+              <Scan />
+            </div>
+            <button className="button" onClick={() => navigate("/waypoints")}>
+              En savoir plus
+            </button>
           </div>
         </div>
       </div>

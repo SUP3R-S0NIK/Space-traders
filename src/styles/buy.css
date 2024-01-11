@@ -1,0 +1,41 @@
+.scan {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 80vw;
+  gap: 10px;
+}
+.search {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.list .button-center {
+  align-self: center;
+}
+.list-system {
+  all: unset;
+  color: #fefefe;
+  padding: 7px;
+  border: 1px solid rgba(61, 94, 217, 0.46);
+  border-radius: 10px;
+}
+.list-system:hover {
+  border: 1px solid #646cff;
+}
+.list-system:focus {
+  border: 1px solid #646cff;
+}
+.scanned-results {
+  width: 100%;
+}

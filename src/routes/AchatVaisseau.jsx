@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import "./../styles/ship.css";
+import "./../styles/buy.css";
 import Menu from "./Menu";
 import Loader from "./loader";
+import PopupAchat from "./popup-achat";
 
 export default function AchatVaisseaux() {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState("");
-  const [ships, setShips] = useState([]);
   const [systemSymbol, setSystemSymbol] = useState("");
-  const [scannedData, setScannedData] = useState(null); // Nouvel état pour stocker les données scannées
+  const [isPopupVisible, setPopupVisibility] = useState(false);
+  const [selectedWaypointSymbol, setSelectedWaypointSymbol] = useState(null);
+  const [scannedData, setScannedData] = useState(null);
 
   useEffect(() => {
-    // Récupérer les données depuis le localStorage
     const storedToken = localStorage.getItem("token");
-    setToken(storedToken);
+    setToken(storedToken || "");
   }, []);
 
-  const fetchShipsData = async () => {
+  const fetchWaypointsData = async () => {
     try {
       const response = await fetch(
-        `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints`,
+        `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?traits=SHIPYARD`,
         {
           method: "GET",
           headers: {
@@ -31,27 +32,24 @@ export default function AchatVaisseaux() {
 
       if (response.ok) {
         const data = await response.json();
-        setShips(data.data); // Stockez les données des vaisseaux dans l'état
-        setScannedData(data); // Stockez les données scannées
+        setScannedData(data);
       } else {
         console.error(
-          "Erreur lors de la requête des vaisseaux. Veuillez réessayer."
+          "Erreur lors de la requête des waypoints. Veuillez réessayer."
         );
       }
     } catch (error) {
-      console.error("Erreur lors de la requête des vaisseaux :", error);
+      console.error("Erreur lors de la requête des waypoints :", error);
     } finally {
-      // Même en cas d'erreur, arrêtez le chargement
       setTimeout(() => {
         setLoading(false);
-      }, 1000); // Durée de 10 secondes
+      }, 1000);
     }
   };
 
   const handleScan = () => {
-    // Fonction appelée lors du clic sur le bouton de scan
     if (systemSymbol) {
-      fetchShipsData(); // Lancez la recherche uniquement si le système symbol est défini
+      fetchWaypointsData();
     } else {
       console.error(
         "Veuillez saisir un système symbol avant de lancer le scan."
@@ -59,33 +57,80 @@ export default function AchatVaisseaux() {
     }
   };
 
+  const handleBuyButtonClick = (waypointSymbol) => {
+    // Affichez le Popup en changeant l'état
+    setSelectedWaypointSymbol(waypointSymbol);
+    setPopupVisibility(true);
+  };
+
+  const handlePopupClose = () => {
+    // Masquez le Popup en changeant l'état
+    setPopupVisibility(false);
+  };
+
   return (
     <div className="page">
       <Menu />
       <div>
         <h2 id="title">Acheter des vaisseaux :</h2>
-        <div className="main">
-          <label htmlFor="systemSymbol">Système Symbol :</label>
-          <input
-            type="text"
-            id="systemSymbol"
-            value={systemSymbol}
-            onChange={(e) => setSystemSymbol(e.target.value)}
-          />
-          <button onClick={handleScan}>Lancer le scan</button>
-        </div>
+        <div className="scan">
+          <section className="search">
+            <label htmlFor="systemSymbol">Système Symbol :</label>
+            <input
+              className="list-system"
+              type="text"
+              id="systemSymbol"
+              value={systemSymbol}
+              onChange={(e) => setSystemSymbol(e.target.value)}
+            />
 
-        {scannedData && (
-          <div className="scanned-results">
-            <h3>Résultats du scan :</h3>
-            {/* Affichez ici les informations scannées selon votre structure */}
-            {scannedData.data.map((waypoint) => (
-              <div key={waypoint.symbol}>
-                <p>Symbol : {waypoint.symbol}</p>
-                <p>Type : {waypoint.type}</p>
-              </div>
-            ))}
-          </div>
+            <button className="button button-center" onClick={handleScan}>
+              Lancer le scan
+            </button>
+          </section>
+          {scannedData && (
+            <div className="scanned-results">
+              <h3>Résultats du scan :</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Type</th>
+                    <th>Orbits</th>
+                    <th>Is Under Construction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {scannedData.data.map((waypoint) => (
+                    <tr key={waypoint.symbol}>
+                      <td>{waypoint.symbol}</td>
+                      <td>{waypoint.type}</td>
+                      <td>{waypoint.orbits}</td>
+                      <td>{waypoint.isUnderConstruction.toString()}</td>
+                      <td>
+                        {" "}
+                        <button
+                          className="button"
+                          onClick={() => handleBuyButtonClick(waypoint.symbol)}
+                        >
+                          Voir la liste des vaisseaux
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className={`blur-div ${isPopupVisible ? "visible" : "hidden"}`}>
+        {isPopupVisible && (
+          <PopupAchat
+            onClose={handlePopupClose}
+            selectedSystemSymbol={systemSymbol}
+            selectedWaypointSymbol={selectedWaypointSymbol}
+          />
         )}
       </div>
     </div>

@@ -1,0 +1,61 @@
+.navigation-div {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 5px;
+  gap: 20px;
+  width: 80vw;
+}
+.navigation-form {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+}
+.navigation-end {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.navigation-div-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 30%;
+}
+.button-nav {
+  align-self: center;
+}
+.navigation-div-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.navigation-div-infos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+/* .line {
+  border: 1px solid rgba(22, 36, 94, 0.842);
+  height: 2px;
+  width: 50%;
+} */
+/* .vaisseaux-div {
+  width: 50%;
+} */

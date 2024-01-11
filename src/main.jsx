@@ -11,7 +11,11 @@ import Connexion from "./routes/Connexion";
 import Home from "./routes/HomePage";
 import Vaisseaux from "./routes/Vaisseau";
 import AchatVaisseaux from "./routes/AchatVaisseau";
+import Scan from "./routes/scan-waypoints";
 import Menu from "./routes/Menu";
+import Minage from "./routes/minage";
+import Navigation from "./routes/navigation.jsx";
+import InfoNav from "./routes/infos-navigation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,22 @@ const router = createBrowserRouter([
   {
     path: "/buy_vaisseaux",
     element: <AchatVaisseaux />,
+  },
+  {
+    path: "/waypoints",
+    element: <Scan />,
+  },
+  {
+    path: "/navigate",
+    element: <Navigation />,
+  },
+  {
+    path: "/info-nav",
+    element: <InfoNav />,
+  },
+  {
+    path: "/miner",
+    element: <Minage />,
   },
 ]);
 

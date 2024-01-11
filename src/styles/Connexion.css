@@ -20,17 +20,7 @@
 }
 
 #Form button {
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  background-color: rgba(0, 0, 255, 0);
-  border: 0;
-  color: #fff;
-  width: fit-content;
-  border-radius: 25px;
-  transition: border-color 0.25s;
-}
-
-#Form button:hover {
-  outline: 4px auto -webkit-focus-ring-color;
+  align-self: unset;
 }
 
 .input-group {

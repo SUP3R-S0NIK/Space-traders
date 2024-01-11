@@ -1,11 +1,17 @@
 .popupcontainer-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   gap: 10px;
 }
+
+.popupcontainer-container td {
+  text-align: start;
+  padding: 5px;
+}
 .popup-div {
-  background: rgba(22, 37, 94, 0.13);
+  background: rgba(9, 14, 37, 0.829);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3.5px);
@@ -18,8 +24,10 @@
   gap: 20px;
   padding: 20px 50px;
   width: 80%;
+  z-index: 9999999;
 }
 .blur-div {
+  z-index: 9999999;
   position: fixed;
   display: flex;
   align-items: center;
@@ -40,8 +48,9 @@
 .section-popup {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: center;
+  gap: 10px;
+  width: 40%;
 }
 .section-popup-table {
   width: 100%;
@@ -74,4 +83,12 @@
 }
 table {
   width: 100%;
+}
+.table-waypoint {
+  text-align: start;
+}
+
+.table-waypoint th,
+.table-waypoint td {
+  padding: 10px;
 }

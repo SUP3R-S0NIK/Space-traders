@@ -39,7 +39,7 @@ export default function Vaisseaux() {
 
         if (response.ok) {
           const data = await response.json();
-          setShips(data.data); // Stockez les données des vaisseaux dans l'état
+          setShips(data.data);
         } else {
           console.error(
             "Erreur lors de la requête des vaisseaux. Veuillez réessayer."
@@ -59,10 +59,14 @@ export default function Vaisseaux() {
   }, [token]);
 
   const handleSendButtonClick = (shipSymbol) => {
-    // Affichez le Popup en changeant l'état
+    // Redirigez vers "/navigate" avec le symbole du vaisseau sélectionné
+    navigate("/navigate");
+    // Mettez à jour le symbole du vaisseau sélectionné dans l'état
     setSelectedShipSymbol(shipSymbol);
-    setPopupVisibility(true);
+    // Stockez le symbole du vaisseau dans le localStorage
+    localStorage.setItem("selectedShipSymbol", shipSymbol);
   };
+
   const handlePopupClose = () => {
     // Masquez le Popup en changeant l'état
     setPopupVisibility(false);
@@ -70,26 +74,14 @@ export default function Vaisseaux() {
 
   const handleStatusChange = async (shipSymbol, currentStatus) => {
     try {
-      let newStatus;
-      if (currentStatus === "DOCKED") {
-        newStatus = "IN_ORBIT";
-      } else if (currentStatus === "IN_ORBIT") {
-        newStatus = "DOCKED";
-      }
+      const newStatus = currentStatus === "DOCKED" ? "IN_ORBIT" : "DOCKED";
 
       // Mettez à jour localement le statut du vaisseau
-      const updatedShips = ships.map((ship) => {
-        if (ship.symbol === shipSymbol) {
-          return {
-            ...ship,
-            nav: {
-              ...ship.nav,
-              status: newStatus,
-            },
-          };
-        }
-        return ship;
-      });
+      const updatedShips = ships.map((ship) =>
+        ship.symbol === shipSymbol
+          ? { ...ship, nav: { ...ship.nav, status: newStatus } }
+          : ship
+      );
 
       setShips(updatedShips); // Mettez à jour l'état local avant la requête à l'API
 
@@ -117,9 +109,19 @@ export default function Vaisseaux() {
       console.error("Erreur lors de la requête :", error);
     }
   };
+  const handleInfoButtonClick = (shipSymbol) => {
+    // Redirigez vers "/navigate" avec le symbole du vaisseau sélectionné
+    navigate("/info-nav");
+    // Mettez à jour le symbole du vaisseau sélectionné dans l'état
+    setSelectedShipSymbol(shipSymbol);
+    // Stockez le symbole du vaisseau dans le localStorage
+    localStorage.setItem("shipInfoNav", shipSymbol);
+  };
+
   if (loading) {
     return <Loader />;
   }
+
   return (
     <div className="page">
       <Menu />
@@ -148,7 +150,10 @@ export default function Vaisseaux() {
                   <td>{ship.frame.name}</td>
                   <td>
                     <button
-                      className="button"
+                      className={`button send-button ${
+                        ship.nav.status === "IN_TRANSIT" ? "disabled" : ""
+                      }`}
+                      disabled={ship.nav.status === "IN_TRANSIT"}
                       onClick={() =>
                         handleStatusChange(ship.symbol, ship.nav.status)
                       }
@@ -183,15 +188,26 @@ export default function Vaisseaux() {
                     </div>
                   </td>
                   <td>
-                    <button
-                      className={`button send-button ${
-                        ship.nav.status === "DOCKED" ? "disabled" : ""
-                      }`}
-                      disabled={ship.nav.status === "DOCKED"}
-                      onClick={() => handleSendButtonClick(ship.symbol)}
-                    >
-                      Envoyer vers
-                    </button>
+                    {ship.nav.status === "DOCKED" ||
+                    ship.nav.status === "IN_ORBIT" ? (
+                      <button
+                        className={`button send-button ${
+                          ship.nav.status === "DOCKED" ? "disabled" : ""
+                        }`}
+                        onClick={() => handleSendButtonClick(ship.symbol)}
+                        disabled={ship.nav.status === "DOCKED"}
+                      >
+                        Envoyer vers
+                      </button>
+                    ) : null}
+                    {ship.nav.status === "IN_TRANSIT" && (
+                      <button
+                        className="button"
+                        onClick={() => handleInfoButtonClick(ship.symbol)}
+                      >
+                        Info Navigation
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
