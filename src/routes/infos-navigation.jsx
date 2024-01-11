@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Menu from "./Menu";
-import Loader from "./Loader";
+import Loader from "./loader";
 import "./../styles/info-navigation.css";
 
 const calculateTimeRemaining = (

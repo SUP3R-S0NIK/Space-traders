@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/navigation.css";
 import Menu from "./Menu";
-import Loader from "./Loader";
+import Loader from "./loader";
 import Validate from "./validate";
 
 const Navigate = ({ shipSymbol }) => {
