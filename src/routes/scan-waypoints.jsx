@@ -218,20 +218,23 @@ export default function Waypoints() {
   console.log(waypoints);
   console.log(selectedSystemSymbol);
   return (
-    <div className="page">
+    <div className="page page-scan">
       <Menu />
       <div className="main">
         <h2 id="title">Waypoints du système</h2>
-        <label>Sélectionner le type de waypoint :</label>
-        <select
-          value={selectedWaypointType}
-          onChange={(event) => setSelectedWaypointType(event.target.value)}
-          className="select"
-        >
-          <option value="Tous">Tous</option>
-          <option value="SHIPYARD">Shipyard</option>
-          <option value="MARKETPLACE">Marketplace</option>
-        </select>
+        <div className="scan-filtre">
+          <label>Sélectionner le type de waypoint :</label>
+          <select
+            value={selectedWaypointType}
+            onChange={(event) => setSelectedWaypointType(event.target.value)}
+            className="select"
+          >
+            <option value="Tous">Tous</option>
+            <option value="SHIPYARD">Shipyard</option>
+            <option value="MARKETPLACE">Marketplace</option>
+          </select>
+        </div>
+
         <div className="div-waypoints">
           <div className="waypoints">
             <div className="wrapper">

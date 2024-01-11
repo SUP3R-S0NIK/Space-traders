@@ -31,9 +31,12 @@ canvas {
   border-radius: 50px;
   position: absolute;
   z-index: 999;
+}
+
+.page-scan .waypoint {
   cursor: pointer;
 }
-.waypoint:hover {
+.page-scan .waypoint:hover {
   background-color: rgba(253, 2, 2, 0.671);
   min-height: 55%;
   width: 55%;
@@ -188,4 +191,22 @@ canvas {
 }
 .list-waypoints td:last-of-type {
   padding: 0;
+}
+
+.scan-filtre {
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  width: fit-content;
+  padding: 10px;
 }

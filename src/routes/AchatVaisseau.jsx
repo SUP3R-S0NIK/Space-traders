@@ -15,6 +15,8 @@ export default function AchatVaisseaux() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken || "");
+    const systemSymbol = localStorage.getItem("systemSymbol");
+    setSystemSymbol(systemSymbol || "");
   }, []);
 
   const fetchWaypointsData = async () => {
@@ -38,6 +40,7 @@ export default function AchatVaisseaux() {
           "Erreur lors de la requête des waypoints. Veuillez réessayer."
         );
       }
+      fetchWaypointsData();
     } catch (error) {
       console.error("Erreur lors de la requête des waypoints :", error);
     } finally {
@@ -49,7 +52,6 @@ export default function AchatVaisseaux() {
 
   const handleScan = () => {
     if (systemSymbol) {
-      fetchWaypointsData();
     } else {
       console.error(
         "Veuillez saisir un système symbol avant de lancer le scan."
@@ -74,23 +76,8 @@ export default function AchatVaisseaux() {
       <div>
         <h2 id="title">Acheter des vaisseaux :</h2>
         <div className="scan">
-          <section className="search">
-            <label htmlFor="systemSymbol">Système Symbol :</label>
-            <input
-              className="list-system"
-              type="text"
-              id="systemSymbol"
-              value={systemSymbol}
-              onChange={(e) => setSystemSymbol(e.target.value)}
-            />
-
-            <button className="button button-center" onClick={handleScan}>
-              Lancer le scan
-            </button>
-          </section>
           {scannedData && (
             <div className="scanned-results">
-              <h3>Résultats du scan :</h3>
               <table>
                 <thead>
                   <tr>

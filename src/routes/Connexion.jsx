@@ -14,58 +14,9 @@ export default function Connexion() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Mettez à jour le token chaque fois que tokenSaisi change
     setToken(tokenSaisi);
   }, [tokenSaisi]);
-
-  useEffect(() => {
-    let isMounted = true;
-    let allWaypoints = [];
-    const fetchAndStoreWaypoints = async (page = 1) => {
-      try {
-        const systemSymbol = localStorage.getItem("systemSymbol");
-
-        const waypointsResponse = await fetch(
-          `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?page=${page}`,
-          {
-            headers: {
-              Accept: "application/json",
-            },
-          }
-        );
-        if (!waypointsResponse.ok) {
-          console.error(
-            "Erreur lors de la récupération des waypoints du système. Veuillez réessayer."
-          );
-          return;
-        }
-
-        const data = await waypointsResponse.json();
-        allWaypoints = allWaypoints.concat(data.data);
-
-        // Vérifiez si la longueur des données est inférieure à la limite par page
-        const itemsPerPage = data.meta?.limit || 10; // Remplacez 10 par la limite réelle par page si différente
-        if (data.data.length === itemsPerPage) {
-          // Appel récursif pour récupérer les pages suivantes
-          const nextPageData = await fetchAndStoreWaypoints(page + 1);
-          console.log(nextPageData);
-          allWaypoints = allWaypoints.concat(nextPageData);
-        }
-
-        console.log(allWaypoints);
-
-        localStorage.setItem("allWaypoints", JSON.stringify(allWaypoints));
-
-        // Redirigez l'utilisateur vers la route /home
-        navigate("/home");
-      } catch (error) {
-        console.error("Erreur lors de la requête :", error);
-      }
-    };
-    fetchAndStoreWaypoints();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,6 +45,7 @@ export default function Connexion() {
           0,
           headquartersSymbol.lastIndexOf("-")
         );
+
         // Stockez les informations dans le localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("symbolDuJoueur", donnees.data.symbol);
@@ -108,6 +60,7 @@ export default function Connexion() {
       console.error("Erreur lors de la requête :", erreur);
     }
   };
+
   return (
     <div className="agent">
       <h2 id="title">Connexion</h2>
