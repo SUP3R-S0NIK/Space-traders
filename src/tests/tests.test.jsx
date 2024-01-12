@@ -1,9 +1,9 @@
 // sum.test.js
 import { expect, test } from "vitest";
-import { calculateDistance } from "./../functions/navigationDistance/calculateDistance";
-import { enableToNavigate } from "../functions/navigationDistance/enableToNavigate";
-import { totalTime } from "../functions/navigationDistance/totalTime";
-import { totalFuelRequired } from "../functions/navigationDistance/totalFuelRequired";
+import { calculateDistance } from "../functionss/navigationDistance/calculateDistance";
+import { enableToNavigate } from "../functionss/navigationDistance/enableToNavigate";
+import { totalTime } from "../functionss/navigationDistance/totalTime";
+import { totalFuelRequired } from "../functionss/navigationDistance/totalFuelRequired";
 import { ShipTest } from "./test-data/Ship";
 import { Waypoint1Test } from "./test-data/Waypoint1";
 import { Waypoint2Test } from "./test-data/Waypoint2";
