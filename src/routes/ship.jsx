@@ -7,6 +7,7 @@ import "./../styles/ship.css";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import MarketplacePage from "./popupmarket";
+import PopupAchat from "./popup-achat";
 import Validate from "./validate";
 
 const calculateTimeRemaining = (arrivalTime, setTimeRemaining) => {
@@ -91,11 +92,13 @@ const ShipPage = () => {
   const [shipData, setShipData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState("");
+  const [systemSymbol, setSystemSymbol] = useState("");
   const [selectedShip, setSelectedShip] = useState("");
   const [waypointData, setWaypointData] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [percentRemaining, setPercentRemaining] = useState(null);
   const [isPopupVisible, setPopupVisibility] = useState(false);
+  const [isPopupShipyardVisible, setPopupShipyardVisibility] = useState(false);
   const [showValidate, setShowValidate] = useState(false);
   const [arrivalTimeDetails, setArrivalTimeDetails] = useState(null);
   const [departureTimestamp, setDepartureTimestampDetails] = useState(null);
@@ -114,6 +117,8 @@ const ShipPage = () => {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken || "");
+    const storedSystemSymbol = localStorage.getItem("systemSymbol");
+    setSystemSymbol(storedSystemSymbol || "");
 
     const storedShipSymbol = localStorage.getItem("selectedShipSymbol");
     if (storedShipSymbol) {
@@ -424,6 +429,17 @@ const ShipPage = () => {
     window.location.reload();
   };
 
+  const handleBuyButtonClick = (waypointSymbol) => {
+    // Affichez le Popup en changeant l'état
+
+    setPopupShipyardVisibility(true);
+  };
+
+  const handleBuyPopupClose = () => {
+    // Masquez le Popup en changeant l'état
+    setPopupShipyardVisibility(false);
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -539,7 +555,7 @@ const ShipPage = () => {
                       }
                       onClick={() => handleSellGoods()}
                     >
-                      Vendre marchandises
+                      Accéder au market
                     </button>
                     <button
                       className={`button ${
@@ -554,6 +570,7 @@ const ShipPage = () => {
                           (trait) => trait.symbol === "SHIPYARD"
                         ) || !shipData.nav.status.includes("DOCKED")
                       }
+                      onClick={() => handleBuyButtonClick()}
                     >
                       Acheter un vaisseau
                     </button>
@@ -658,6 +675,17 @@ const ShipPage = () => {
               waypointSymbol={waypointData.symbol}
             />
           )}
+      </div>
+      <div
+        className={`blur-div ${isPopupShipyardVisible ? "visible" : "hidden"}`}
+      >
+        {isPopupShipyardVisible && (
+          <PopupAchat
+            onClose={handleBuyPopupClose}
+            selectedSystemSymbol={systemSymbol}
+            selectedWaypointSymbol={waypointData.symbol}
+          />
+        )}
       </div>
     </div>
   );

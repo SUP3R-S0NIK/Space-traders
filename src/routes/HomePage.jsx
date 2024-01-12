@@ -76,85 +76,6 @@ export default function Home() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const fetchMoneyHistory = async () => {
-  //     try {
-  //       const storedMoneyHistory = localStorage.getItem("moneyHistory");
-
-  //       if (storedMoneyHistory) {
-  //         setMoneyHistory(JSON.parse(storedMoneyHistory));
-  //       } else {
-  //         console.warn(
-  //           "Aucune donnée d'historique de gains trouvée dans le stockage local."
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.error(
-  //         "Erreur lors de la récupération de l'historique de gains depuis le stockage local :",
-  //         error
-  //       );
-  //     }
-  //   };
-
-  //   fetchMoneyHistory();
-  // }, []);
-
-  // const calculateDailyGains = (currentCredits, currentDate, moneyHistory) => {
-  //   moneyHistory = moneyHistory || [];
-
-  //   if (moneyHistory.length === 0) {
-  //     return [
-  //       {
-  //         date: currentDate,
-  //         gains: currentCredits,
-  //       },
-  //     ];
-  //   }
-
-  //   const lastRecord = moneyHistory[moneyHistory.length - 1];
-  //   const gains = currentCredits - lastRecord.gains;
-
-  //   if (currentDate !== lastRecord.date) {
-  //     const dailyGains = {
-  //       date: currentDate,
-  //       gains: gains,
-  //     };
-  //     const updatedMoneyHistory = [...moneyHistory, dailyGains];
-  //     return updatedMoneyHistory;
-  //   }
-
-  //   const updatedLastRecord = {
-  //     ...lastRecord,
-  //     gains: gains,
-  //   };
-
-  //   const updatedMoneyHistory = [
-  //     ...moneyHistory.slice(0, moneyHistory.length - 1),
-  //     updatedLastRecord,
-  //   ];
-
-  //   return updatedMoneyHistory;
-  // };
-
-  // useEffect(() => {
-  //   // Effectuez des actions à chaque changement de crédits ou d'historique de gains
-  //   const updateMoneyHistory = () => {
-  //     const currentDate = new Date().toLocaleDateString();
-  //     const dailyGains = calculateDailyGains(
-  //       credits,
-  //       currentDate,
-  //       moneyHistory
-  //     );
-
-  //     setMoneyHistory(dailyGains);
-
-  //     // Stocker les données d'historique de gains dans le stockage local
-  //     localStorage.setItem("moneyHistory", JSON.stringify(dailyGains));
-  //   };
-
-  //   updateMoneyHistory();
-  // }, [credits, moneyHistory]);
-
   useEffect(() => {
     const fetchShipsData = async () => {
       try {
@@ -209,6 +130,7 @@ export default function Home() {
                   <th>Nom du vaisseau</th>
                   <th>Type de vaisseau</th>
                   <th>Statut du vaisseau</th>
+                  <th>Position actuelle</th>
                   <th>Capacité du vaisseau</th>
                   <th>Essence du vaisseau</th>
                 </tr>
@@ -219,7 +141,7 @@ export default function Home() {
                     <td>{ship.registration.name}</td>
                     <td>{ship.frame.name}</td>
                     <td>{ship.nav.status}</td>
-                    <td>{ship.nav.systemSymbol}</td>
+
                     <td>{ship.nav.waypointSymbol}</td>
                     <td>
                       <div className="bar">

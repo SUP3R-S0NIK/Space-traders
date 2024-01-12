@@ -198,7 +198,6 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
           {/* Section d'achat */}
           {showBuy && (
             <div className="imports-div">
-              <h3>Imports</h3>
               <table className="table-market">
                 <thead>
                   <tr>
@@ -248,7 +247,6 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
           {/* Section de vente */}
           {showSell && (
             <div className="exports-div">
-              <h3>Exports</h3>
               <table className="table-market">
                 <thead>
                   <tr>
@@ -264,7 +262,7 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
                     {marketData.tradeGoods.map((item) => (
                       <tr key={item.symbol}>
                         <td>{item.symbol}</td>
-                        <td>{item.purchasePrice}</td>
+                        <td>{item.sellPrice}</td>
 
                         <td>
                           <input

@@ -19,7 +19,6 @@ export default function AchatVaisseaux() {
     setSystemSymbol(storedSystemSymbol || "");
 
     const fetchWaypointsData = async () => {
-      console.log("SS", systemSymbol);
       try {
         const response = await fetch(
           `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?traits=SHIPYARD`,

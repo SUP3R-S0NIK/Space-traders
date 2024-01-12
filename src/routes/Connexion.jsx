@@ -6,14 +6,15 @@ import "./../styles/Connexion.css";
 
 export default function Connexion() {
   const [tokenSaisi, setTokenSaisi] = useState("");
+
   const navigate = useNavigate();
 
-  const fetchAndStoreWaypoints = async (page = 1) => {
+  const fetchAndStoreWaypoints = async (systemSymbol, page = 1) => {
     try {
-      const systemSymbol = localStorage.getItem("systemSymbol");
-
+      const systemSymbolenr = systemSymbol;
+      console.log(systemSymbol);
       const waypointsResponse = await fetch(
-        `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?page=${page}`,
+        `https://api.spacetraders.io/v2/systems/${systemSymbolenr}/waypoints?page=${page}`,
         {
           headers: {
             Accept: "application/json",
@@ -35,7 +36,10 @@ export default function Connexion() {
       const itemsPerPage = waypointsData.meta?.limit || 10;
       if (waypointsData.data.length === itemsPerPage) {
         // Appel récursif pour récupérer les pages suivantes
-        const nextPageData = await fetchAndStoreWaypoints(page + 1);
+        const nextPageData = await fetchAndStoreWaypoints(
+          systemSymbol,
+          page + 1
+        );
         return allWaypoints.concat(nextPageData);
       }
 
@@ -61,14 +65,26 @@ export default function Connexion() {
       if (response.ok) {
         const data = await response.json();
         const symbolJoueur = data.data.symbol;
+        const headquartersSymbol = data.data.headquarters;
 
-        const allWaypoints = await fetchAndStoreWaypoints();
+        if (!headquartersSymbol) {
+          console.error("Le symbole du siège social est indéfini.");
+          return;
+        }
+
+        const systemSymbol = headquartersSymbol.substring(
+          0,
+          headquartersSymbol.lastIndexOf("-")
+        );
+        const allWaypoints = await fetchAndStoreWaypoints(systemSymbol);
+        console.log("sys", systemSymbol);
 
         console.log(allWaypoints);
 
         localStorage.setItem("token", tokenSaisi);
         localStorage.setItem("symbolDuJoueur", symbolJoueur);
         localStorage.setItem("allWaypoints", JSON.stringify(allWaypoints));
+        localStorage.setItem("systemSymbol", systemSymbol);
 
         navigate("/home");
       } else {

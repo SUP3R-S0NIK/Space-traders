@@ -25,11 +25,6 @@ const PopupAchat = ({
   useEffect(() => {
     const fetchYourShips = async () => {
       try {
-        if (!token) {
-          console.error("Token manquant. Veuillez vous connecter.");
-          return;
-        }
-
         const myShipsResponse = await fetch(
           "https://api.spacetraders.io/v2/my/ships",
           {
@@ -78,10 +73,6 @@ const PopupAchat = ({
           setShipyardData(data.data);
           setShips(data.data.ships);
 
-          if (!token) {
-            console.error("Token manquant. Veuillez vous connecter.");
-            return;
-          }
           // Vérifier si aucun vaisseau n'est au shipyard
           const myShipsResponse = await fetch(
             "https://api.spacetraders.io/v2/my/ships",
@@ -210,7 +201,7 @@ const PopupAchat = ({
   }
 
   return (
-    <div>
+    <div className="popup-div">
       <button onClick={onClose} className="button">
         Fermer
       </button>

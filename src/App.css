@@ -10,6 +10,14 @@
   font-family: "paladins";
   src: url(/src/Fonts/paladins.ttf);
 }
+@font-face {
+  font-family: "kavivanar";
+  src: url(/src/Fonts/Kavivanar-Regular.ttf);
+}
+@font-face {
+  font-family: "kelly";
+  src: url(/src/Fonts/KellySlab-Regular.ttf);
+}
 
 header {
   height: 130px;
