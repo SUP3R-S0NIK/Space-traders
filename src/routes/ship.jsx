@@ -207,7 +207,7 @@ const ShipPage = () => {
 
       fetchData();
     }
-  }, [token, selectedShip]);
+  }, [token, selectedShip, cooldownIntervalId]);
 
   const handleStatusChange = async (shipSymbol, currentStatus) => {
     try {

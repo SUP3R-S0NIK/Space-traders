@@ -6,10 +6,8 @@ import "./../styles/Connexion.css";
 
 export default function Connexion() {
   const [token, setToken] = useState("");
-  const [waypoints, setWaypoints] = useState([]);
+
   const [tokenSaisi, setTokenSaisi] = useState("");
-  const [symbolJoueur, setSymbolJoueur] = useState("");
-  const [selectedWaypointType, setSelectedWaypointType] = useState("");
 
   const navigate = useNavigate();
 
@@ -32,7 +30,6 @@ export default function Connexion() {
 
       if (reponse.ok) {
         const donnees = await reponse.json();
-        setSymbolJoueur(donnees.data.symbol);
 
         const headquartersSymbol = donnees.data.headquarters;
 

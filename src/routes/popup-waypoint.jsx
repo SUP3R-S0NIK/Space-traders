@@ -94,7 +94,7 @@ const PopupWaypoint = ({ selectedWaypoint, selectedSystem, onClose }) => {
     };
 
     fetchwaypointData();
-  }, [selectedSystem, selectedWaypoint, token, yourShips]);
+  }, [selectedSystem, selectedWaypoint, token, yourShips, waypointData.type]);
 
   const handleSendButtonClick = (waypointSymbol, waypointType) => {
     // Redirigez vers "/navigate" avec le symbole du vaisseau sélectionné

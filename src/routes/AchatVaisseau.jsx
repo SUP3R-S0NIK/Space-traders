@@ -51,16 +51,6 @@ export default function AchatVaisseaux() {
     fetchWaypointsData();
   }, [token, systemSymbol]);
 
-  const handleScan = () => {
-    if (systemSymbol) {
-      // Logique de numérisation ici
-    } else {
-      console.error(
-        "Veuillez saisir un système symbol avant de lancer le scan."
-      );
-    }
-  };
-
   const handleBuyButtonClick = (waypointSymbol) => {
     // Affichez le Popup en changeant l'état
     setSelectedWaypointSymbol(waypointSymbol);
