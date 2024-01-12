@@ -24,7 +24,7 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
     setToken(storedToken || "");
   }, []);
 
-  const fetchMarketData = useCallback(async () => {
+  const fetchMarketData = async () => {
     try {
       setLoading(true);
 
@@ -59,7 +59,7 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
     } finally {
       setLoading(false);
     }
-  }, [systemSymbol, waypointSymbol, token]);
+  };
 
   useEffect(() => {
     fetchMarketData();

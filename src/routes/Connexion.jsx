@@ -1,112 +1,81 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./../App.css"; // Assurez-vous d'importer votre fichier CSS
+import "./../App.css";
 import "./../styles/stars.css";
 import "./../styles/Connexion.css";
 
 export default function Connexion() {
-  const [token, setToken] = useState("");
-  const [waypoints, setWaypoints] = useState([]);
   const [tokenSaisi, setTokenSaisi] = useState("");
-  const [symbolJoueur, setSymbolJoueur] = useState("");
-  const [selectedWaypointType, setSelectedWaypointType] = useState("");
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setToken(tokenSaisi);
-  }, [tokenSaisi]);
+  const fetchAndStoreWaypoints = async (page = 1) => {
+    try {
+      const systemSymbol = localStorage.getItem("systemSymbol");
 
-  useEffect(() => {
-    let isMounted = true;
-    let allWaypoints = [];
-    const fetchAndStoreWaypoints = async (page = 1) => {
-      try {
-        const systemSymbol = localStorage.getItem("systemSymbol");
+      const waypointsResponse = await fetch(
+        `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?page=${page}`,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
-        const waypointsResponse = await fetch(
-          `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?page=${page}`,
-          {
-            headers: {
-              Accept: "application/json",
-            },
-          }
+      if (!waypointsResponse.ok) {
+        console.error(
+          "Erreur lors de la récupération des waypoints du système. Veuillez réessayer."
         );
-        if (!waypointsResponse.ok) {
-          console.error(
-            "Erreur lors de la récupération des waypoints du système. Veuillez réessayer."
-          );
-          return;
-        }
-
-        const data = await waypointsResponse.json();
-        allWaypoints = allWaypoints.concat(data.data);
-
-        // Vérifiez si la longueur des données est inférieure à la limite par page
-        const itemsPerPage = data.meta?.limit || 10; // Remplacez 10 par la limite réelle par page si différente
-        if (data.data.length === itemsPerPage) {
-          // Appel récursif pour récupérer les pages suivantes
-          const nextPageData = await fetchAndStoreWaypoints(page + 1);
-          console.log(nextPageData);
-          allWaypoints = allWaypoints.concat(nextPageData);
-        }
-
-        console.log(allWaypoints);
-
-        localStorage.setItem("allWaypoints", JSON.stringify(allWaypoints));
-
-        // Redirigez l'utilisateur vers la route /home
-        navigate("/home");
-      } catch (error) {
-        console.error("Erreur lors de la requête :", error);
+        return [];
       }
-    };
-    fetchAndStoreWaypoints();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+
+      const waypointsData = await waypointsResponse.json();
+      const allWaypoints = waypointsData.data;
+
+      // Vérifiez si la longueur des données est inférieure à la limite par page
+      const itemsPerPage = waypointsData.meta?.limit || 10;
+      if (waypointsData.data.length === itemsPerPage) {
+        // Appel récursif pour récupérer les pages suivantes
+        const nextPageData = await fetchAndStoreWaypoints(page + 1);
+        return allWaypoints.concat(nextPageData);
+      }
+
+      return allWaypoints;
+    } catch (error) {
+      console.error("Erreur lors de la requête :", error);
+      return [];
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const reponse = await fetch("https://api.spacetraders.io/v2/my/agent", {
+      const response = await fetch("https://api.spacetraders.io/v2/my/agent", {
         method: "GET",
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenSaisi}`,
         },
       });
 
-      if (reponse.ok) {
-        const donnees = await reponse.json();
-        setSymbolJoueur(donnees.data.symbol);
+      if (response.ok) {
+        const data = await response.json();
+        const symbolJoueur = data.data.symbol;
 
-        const headquartersSymbol = donnees.data.headquarters;
+        const allWaypoints = await fetchAndStoreWaypoints();
 
-        if (!headquartersSymbol) {
-          console.error("Le symbole du siège social est indéfini.");
-          return;
-        }
+        console.log(allWaypoints);
 
-        const systemSymbol = headquartersSymbol.substring(
-          0,
-          headquartersSymbol.lastIndexOf("-")
-        );
+        localStorage.setItem("token", tokenSaisi);
+        localStorage.setItem("symbolDuJoueur", symbolJoueur);
+        localStorage.setItem("allWaypoints", JSON.stringify(allWaypoints));
 
-        // Stockez les informations dans le localStorage
-        localStorage.setItem("token", token);
-        localStorage.setItem("symbolDuJoueur", donnees.data.symbol);
-        localStorage.setItem("systemSymbol", systemSymbol);
-
-        // Redirigez l'utilisateur vers la route /home
         navigate("/home");
       } else {
         console.error("Erreur lors de la requête. Veuillez réessayer.");
       }
-    } catch (erreur) {
-      console.error("Erreur lors de la requête :", erreur);
+    } catch (error) {
+      console.error("Erreur lors de la requête :", error);
     }
   };
 

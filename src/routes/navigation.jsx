@@ -115,39 +115,36 @@ const Navigate = ({ shipSymbol }) => {
     return allWaypoints;
   };
 
-  const fetchShipDetails = useCallback(
-    async (selectedShip) => {
-      try {
-        const response = await fetch(
-          `https://api.spacetraders.io/v2/my/ships/${selectedShip}`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          return data.data;
-        } else {
-          console.error(
-            "Erreur lors de la requête des détails du vaisseau. Veuillez réessayer."
-          );
-          return null;
+  const fetchShipDetails = async (selectedShip) => {
+    try {
+      const response = await fetch(
+        `https://api.spacetraders.io/v2/my/ships/${selectedShip}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.data;
+      } else {
         console.error(
-          "Erreur lors de la requête des détails du vaisseau :",
-          error
+          "Erreur lors de la requête des détails du vaisseau. Veuillez réessayer."
         );
         return null;
       }
-    },
-    [token]
-  );
+    } catch (error) {
+      console.error(
+        "Erreur lors de la requête des détails du vaisseau :",
+        error
+      );
+      return null;
+    }
+  };
 
   const fetchWaypointDetails = async (selectedWaypoint) => {
     try {
@@ -267,7 +264,7 @@ const Navigate = ({ shipSymbol }) => {
     };
 
     updateTripDuration();
-  }, [distance, selectedShip, fetchShipDetails]);
+  }, [distance, selectedShip]);
 
   const handleNavigateButtonClick = async () => {
     try {
