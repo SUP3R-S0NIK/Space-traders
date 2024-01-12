@@ -63,7 +63,7 @@ const MarketplacePage = ({ systemSymbol, waypointSymbol, onClose }) => {
 
   useEffect(() => {
     fetchMarketData();
-  }, [token, fetchMarketData]);
+  }, [token, systemSymbol, waypointSymbol]);
 
   useEffect(() => {
     if (marketData) {
