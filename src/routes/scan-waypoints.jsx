@@ -125,80 +125,6 @@ export default function Waypoints() {
     };
   }, [selectedWaypointType]);
 
-  // const fetchWaypoints = async (waypointType, page = 1) => {
-  //   try {
-  //     const storedToken = localStorage.getItem("token");
-  //     setToken(storedToken);
-
-  //     const agentResponse = await fetch(
-  //       "https://api.spacetraders.io/v2/my/agent",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${storedToken}`,
-  //         },
-  //       }
-  //     );
-
-  //     if (!agentResponse.ok) {
-  //       console.error(
-  //         "Erreur lors de la récupération des informations de l'agent. Veuillez réessayer."
-  //       );
-  //       return;
-  //     }
-
-  //     const agentData = await agentResponse.json();
-  //     const headquartersSymbol = agentData.data.headquarters;
-
-  //     if (!headquartersSymbol) {
-  //       console.error("Le symbole du siège social est indéfini.");
-  //       return;
-  //     }
-
-  //     const systemSymbol = headquartersSymbol.substring(
-  //       0,
-  //       headquartersSymbol.lastIndexOf("-")
-  //     );
-
-  //     // Utilisez l'état selectedWaypointType pour construire l'URL de l'API
-  //     const waypointsResponse = await fetch(
-  //       `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?traits=${selectedWaypointType}&page=${page}`,
-  //       {
-  //         headers: {
-  //           Accept: "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     if (!waypointsResponse.ok) {
-  //       console.error(
-  //         "Erreur lors de la récupération des waypoints du système. Veuillez réessayer."
-  //       );
-  //       return;
-  //     }
-  //     const data = await waypointsResponse.json();
-  //     allWaypoints = allWaypoints.concat(data.data);
-
-  //     // Vérifiez si la longueur des données est inférieure à la limite par page
-  //     const itemsPerPage = data.meta?.limit || 10; // Remplacez 10 par la limite réelle par page si différente
-  //     if (data.data.length === itemsPerPage) {
-  //       // Appel récursif pour récupérer les pages suivantes
-  //       const nextPageData = await fetchWaypoints(waypointType, page + 1);
-  //       console.log("next", nextPageData);
-  //       allWaypoints = allWaypoints.concat(nextPageData);
-  //     }
-
-  //     console.log(allWaypoints);
-  //     setWaypoints(allWaypoints);
-  //     // localStorage.setItem("allWaypoints", JSON.stringify(allWaypoints));
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des données :", error);
-  //   } finally {
-  //     setTimeout(() => {
-  //       if (isMounted) setLoading(false);
-  //     }, 1000);
-  //   }
-  // };
-
   const handlePopupButtonClick = (waypoint) => {
     // Afficher la popup lors du clic sur "Envoyer un vaisseau"
     setSelectedWaypointSymbol(waypoint.symbol);
@@ -210,11 +136,7 @@ export default function Waypoints() {
     // Fermer la popup
     setPopupVisibility(false);
   };
-  // console.log(waypoints);
-  // if (loading) {
-  //   return <Loader />;
-  // }
-  // console.log(waypoints[8].symbol);
+
   console.log(waypoints);
   console.log(selectedSystemSymbol);
   return (
@@ -240,18 +162,23 @@ export default function Waypoints() {
             <div className="wrapper">
               <div className="board">
                 <div className="waypoints-zone">
-                  {Array.isArray(waypoints) ? (
-                    waypoints.map((waypoint, index) => (
-                      <div
-                        onClick={() => handlePopupButtonClick(waypoint)}
-                        key={index}
-                        className="waypoint"
-                        style={{
-                          left: `${waypoint?.x ?? 0}%`,
-                          top: `${waypoint?.y ?? 0}%`,
-                        }}
-                      ></div>
-                    ))
+                  {Array.isArray(waypoints) && waypoints.length > 0 ? (
+                    waypoints
+                      .filter(
+                        (waypoint) =>
+                          waypoint && (waypoint.x !== 0 || waypoint.y !== 0)
+                      )
+                      .map((waypoint, index) => (
+                        <div
+                          onClick={() => handlePopupButtonClick(waypoint)}
+                          key={index}
+                          className="waypoint"
+                          style={{
+                            left: `${waypoint?.x ?? 0}%`,
+                            top: `${waypoint?.y ?? 0}%`,
+                          }}
+                        ></div>
+                      ))
                   ) : (
                     <p>Aucun waypoint disponible pour ce système.</p>
                   )}
@@ -265,40 +192,6 @@ export default function Waypoints() {
               <div className="radar"></div>
             </div>
           </div>
-        </div>
-
-        <div className="list-waypoints">
-          <h4>Liste des waypoints</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Type</th>
-                <th>Caractéristique(s)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* {Array.isArray(waypoints) && waypoints.length > 0 ? (
-                waypoints.map((waypoint, index) => (
-                  <tr key={index} id={`${waypoint.symbol}`}>
-                    <td>{index}</td>
-                    <td>{waypoint.type}</td>
-                    <td>
-                      {waypoint.traits && Array.isArray(waypoint.traits)
-                        ? waypoint.traits.map((trait) => trait.name).join(", ")
-                        : ""}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3">
-                    <p>Aucun waypoint disponible pour ce système.</p>
-                  </td>
-                </tr>
-              )} */}
-            </tbody>
-          </table>
         </div>
 
         <div className={`blur-div ${isPopupVisible ? "visible" : "hidden"}`}>

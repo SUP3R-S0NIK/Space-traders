@@ -16,6 +16,7 @@ import Menu from "./routes/Menu";
 import Minage from "./routes/Minage";
 import Navigation from "./routes/navigation.jsx";
 import InfoNav from "./routes/infos-navigation.jsx";
+import Vaisseau from "./routes/ship";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: "/miner",
     element: <Minage />,
+  },
+  {
+    path: "/vaisseau",
+    element: <Vaisseau />,
   },
 ]);
 

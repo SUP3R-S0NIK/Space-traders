@@ -158,7 +158,7 @@ const Menu = () => {
             />
           </svg>
         </section>
-        <div className={`info ${isMenuOpen ? "open" : ""}`}>
+        <div className={`info-agent ${isMenuOpen ? "open" : ""}`}>
           <p>{symbolDuJoueur}</p>
           <p>{startingFaction}</p>
         </div>

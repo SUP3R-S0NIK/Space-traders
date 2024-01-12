@@ -149,11 +149,6 @@ const PopupWaypoint = ({ selectedWaypoint, selectedSystem, onClose }) => {
 
         {noShipsAtwaypoint ? (
           <div>
-            <p style={{ color: "red" }}>
-              Aucun de vos vaisseaux n'est au waypoint.
-            </p>
-            <label htmlFor="selectShip">Sélectionner un vaisseau : </label>
-
             <button
               className="button"
               onClick={() =>

@@ -187,7 +187,7 @@ const PopupAchat = ({
       );
 
       if (buyShipResponse.ok) {
-        console.log("Achat réussi !");
+        // console.log("Achat réussi !");
         setShowValidate(true);
 
         // Masquer l'élément Validate après 1 seconde
@@ -210,7 +210,7 @@ const PopupAchat = ({
   }
 
   return (
-    <div className="popup-div">
+    <div>
       <button onClick={onClose} className="button">
         Fermer
       </button>

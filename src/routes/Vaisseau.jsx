@@ -58,9 +58,9 @@ export default function Vaisseaux() {
     fetchShipsData();
   }, [token]);
 
-  const handleSendButtonClick = (shipSymbol) => {
+  const handleShipButtonClick = (shipSymbol) => {
     // Redirigez vers "/navigate" avec le symbole du vaisseau sélectionné
-    navigate("/navigate");
+    navigate("/vaisseau");
     // Mettez à jour le symbole du vaisseau sélectionné dans l'état
     setSelectedShipSymbol(shipSymbol);
     // Stockez le symbole du vaisseau dans le localStorage
@@ -188,26 +188,15 @@ export default function Vaisseaux() {
                     </div>
                   </td>
                   <td>
-                    {ship.nav.status === "DOCKED" ||
-                    ship.nav.status === "IN_ORBIT" ? (
-                      <button
-                        className={`button send-button ${
-                          ship.nav.status === "DOCKED" ? "disabled" : ""
-                        }`}
-                        onClick={() => handleSendButtonClick(ship.symbol)}
-                        disabled={ship.nav.status === "DOCKED"}
-                      >
-                        Envoyer vers
-                      </button>
-                    ) : null}
-                    {ship.nav.status === "IN_TRANSIT" && (
-                      <button
-                        className="button"
-                        onClick={() => handleInfoButtonClick(ship.symbol)}
-                      >
-                        Info Navigation
-                      </button>
-                    )}
+                    <button
+                      className={`button send-button ${
+                        ship.nav.status === "DOCKED" ? "disabled" : ""
+                      }`}
+                      onClick={() => handleShipButtonClick(ship.symbol)}
+                      disabled={ship.nav.status === "DOCKED"}
+                    >
+                      Gérer
+                    </button>
                   </td>
                 </tr>
               ))}

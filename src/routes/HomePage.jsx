@@ -252,59 +252,6 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="Money">
-            <h4>Mon argent :</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Gains (Crédits)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {moneyHistory.map((entry) => (
-                  <tr key={entry.date}>
-                    <td>{entry.date}</td>
-                    <td>{entry.gains}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="Contrats">
-            <div>
-              <h4>Contrats :</h4>
-              {contracts.length > 0 ? (
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Type</th>
-                      <th>Accepté</th>
-                      <th>Rempli</th>
-                      <th>Expiration</th>
-                      <th>Date limite d'acceptation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {contracts.map((contract) => (
-                      <tr key={contract.id}>
-                        <td>{contract.type}</td>
-                        <td>{contract.accepted ? "Oui" : "Non"}</td>
-                        <td>{contract.fulfilled ? "Oui" : "Non"}</td>
-                        <td>{formatDate(contract.expiration)}</td>
-                        <td>{formatDate(contract.deadlineToAccept)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <p>Aucun contrat disponible.</p>
-              )}
-            </div>
-            <button className="button button-contracts">Gérer</button>
-          </div>
-
           <div className="map">
             <h4>Carte du système :</h4>
             <div className="div-map">

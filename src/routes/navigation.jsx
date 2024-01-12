@@ -297,7 +297,7 @@ const Navigate = ({ shipSymbol }) => {
         setTimeout(() => {
           setShowValidate(false);
         }, 1000);
-        navigate("/info-nav");
+        navigate("/vaisseau");
         // Mettez à jour le symbole du vaisseau sélectionné dans l'état
 
         // Stockez le symbole du vaisseau dans le localStorage

@@ -15,43 +15,45 @@ export default function AchatVaisseaux() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken || "");
-    const systemSymbol = localStorage.getItem("systemSymbol");
-    setSystemSymbol(systemSymbol || "");
-  }, []);
+    const storedSystemSymbol = localStorage.getItem("systemSymbol");
+    setSystemSymbol(storedSystemSymbol || "");
 
-  const fetchWaypointsData = async () => {
-    try {
-      const response = await fetch(
-        `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?traits=SHIPYARD`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setScannedData(data);
-      } else {
-        console.error(
-          "Erreur lors de la requête des waypoints. Veuillez réessayer."
+    const fetchWaypointsData = async () => {
+      console.log("SS", systemSymbol);
+      try {
+        const response = await fetch(
+          `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints?traits=SHIPYARD`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-      }
-      fetchWaypointsData();
-    } catch (error) {
-      console.error("Erreur lors de la requête des waypoints :", error);
-    } finally {
-      setTimeout(() => {
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("data: ", data);
+          setScannedData(data);
+        } else {
+          console.error(
+            "Erreur lors de la requête des waypoints. Veuillez réessayer."
+          );
+        }
+      } catch (error) {
+        console.error("Erreur lors de la requête des waypoints :", error);
+      } finally {
         setLoading(false);
-      }, 1000);
-    }
-  };
+      }
+    };
+
+    fetchWaypointsData();
+  }, [token, systemSymbol]);
 
   const handleScan = () => {
     if (systemSymbol) {
+      // Logique de numérisation ici
     } else {
       console.error(
         "Veuillez saisir un système symbol avant de lancer le scan."
@@ -73,10 +75,12 @@ export default function AchatVaisseaux() {
   return (
     <div className="page">
       <Menu />
-      <div>
-        <h2 id="title">Acheter des vaisseaux :</h2>
-        <div className="scan">
-          {scannedData && (
+      {loading ? (
+        <Loader />
+      ) : (
+        <div>
+          <h2 id="title">Acheter des vaisseaux :</h2>
+          <div className="scan">
             <div className="scanned-results">
               <table>
                 <thead>
@@ -85,17 +89,17 @@ export default function AchatVaisseaux() {
                     <th>Type</th>
                     <th>Orbits</th>
                     <th>Is Under Construction</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {scannedData.data.map((waypoint) => (
+                  {scannedData?.data.map((waypoint) => (
                     <tr key={waypoint.symbol}>
                       <td>{waypoint.symbol}</td>
                       <td>{waypoint.type}</td>
                       <td>{waypoint.orbits}</td>
                       <td>{waypoint.isUnderConstruction.toString()}</td>
                       <td>
-                        {" "}
                         <button
                           className="button"
                           onClick={() => handleBuyButtonClick(waypoint.symbol)}
@@ -108,9 +112,9 @@ export default function AchatVaisseaux() {
                 </tbody>
               </table>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
       <div className={`blur-div ${isPopupVisible ? "visible" : "hidden"}`}>
         {isPopupVisible && (
           <PopupAchat

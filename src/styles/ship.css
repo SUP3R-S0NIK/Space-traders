@@ -14,3 +14,106 @@
 .button.disabled {
   opacity: 0.5;
 }
+
+.dashboard-ship {
+  width: 90%;
+}
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px 20px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "info-ship info-ship info-ship info-ship info-position info-position info-position"
+    "info-statut info-statut info-statut info-cargo info-cargo info-cargo info-cargo";
+}
+
+.info {
+  background: rgba(22, 37, 94, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border: 1px solid rgba(22, 37, 94, 0.46);
+  color: white;
+  display: flex;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.info-ship {
+  grid-area: info-ship;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}
+.info-ship-value {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.info-ship-value .button {
+  margin: 0;
+  width: 15%;
+}
+.info-ship-jaugeDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+.info-ship-jaugeDiv progress {
+  width: 100%;
+}
+.info-ship-jaugeSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.info-position {
+  grid-area: info-position;
+}
+.info-position-traitsDiv p {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.Traits {
+  border: 1px solid white;
+  padding: 2px;
+}
+
+.info-statut {
+  grid-area: info-statut;
+}
+.info-statut-dock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.info-cargo {
+  grid-area: info-cargo;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.info-cargo th:first-child,
+.info-cargo td:first-child {
+  text-align: start;
+}

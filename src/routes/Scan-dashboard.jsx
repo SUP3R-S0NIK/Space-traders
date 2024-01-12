@@ -24,7 +24,7 @@ const ScanDashboard = ({}) => {
 
         // Convertir la chaîne JSON en tableau d'objets
         const parsedWaypoints = JSON.parse(waypointsString);
-        console.log(parsedWaypoints);
+        // console.log(parsedWaypoints);
 
         // Assurez-vous que parsedWaypoints est un tableau avant de le définir
         if (Array.isArray(parsedWaypoints)) {

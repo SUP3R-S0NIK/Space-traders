@@ -92,3 +92,19 @@ table {
 .table-waypoint td {
   padding: 10px;
 }
+
+.imports-div {
+  width: 100%;
+}
+.exports-div {
+  width: 100%;
+}
+.table-market input {
+  width: 20%;
+  padding: 3px 10px;
+}
+
+.table-market th:first-child,
+.table-market td:first-child {
+  text-align: start;
+}
