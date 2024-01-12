@@ -189,11 +189,8 @@ export default function Vaisseaux() {
                   </td>
                   <td>
                     <button
-                      className={`button send-button ${
-                        ship.nav.status === "DOCKED" ? "disabled" : ""
-                      }`}
+                      className="button send-button"
                       onClick={() => handleShipButtonClick(ship.symbol)}
-                      disabled={ship.nav.status === "DOCKED"}
                     >
                       Gérer
                     </button>

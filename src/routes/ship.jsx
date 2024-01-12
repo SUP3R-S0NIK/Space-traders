@@ -398,25 +398,6 @@ const ShipPage = () => {
         return;
       }
 
-      // Effectuez la requête pour obtenir les détails du marché
-      const response = await fetch(
-        `https://api.spacetraders.io/v2/systems/${shipData.nav.systemSymbol}/waypoints/${waypointData.symbol}/market`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        console.error(
-          "Erreur lors de la requête pour obtenir les détails du marché."
-        );
-        return;
-      }
-
-      const marketData = await response.json();
       setPopupVisibility(true);
       // Faites quelque chose avec les données du marché (marketData) ici
       // console.log("Données du marché :", marketData);
